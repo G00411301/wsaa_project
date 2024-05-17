@@ -24,4 +24,39 @@ class appDAO:
         self.password = cfg.mysql['password'] 
         self.database = cfg.mysql['database'] 
 
-        
+#Create cursor object to store data from query results in
+    def getcursor(self):
+        self.connection = mysql.connector.connect(
+            host = self.host,
+            user = self.user,
+            password = self.password,
+            database = self.database,
+        )
+
+#Close the connection and the cursor for the DB
+    def closeall(self):
+        self.connection.close()
+        self.cursor.close()
+
+#select all records in my data base
+
+    def getcontacts(self):
+        cursor = self.getcursor
+        sql = "select * from contacts"
+        cursor.execute(sql)
+        results = cursor.fetchall
+        returnarray = []
+        for result in results:
+            returnarray.append(self.convert_to_dict(result))
+
+
+    def convert_to_dict(self, resultLine):
+        attrkeys=[
+                #TODO add DB attributes here
+        ]
+        contact = {}
+        currentkey = 0
+        for attrib in resultLine:
+            contact[attrkeys[currentkey]] = attrib
+            currentkey = currentkey + 1
+        return contact
