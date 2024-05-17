@@ -52,6 +52,18 @@ class AppDAO:
             returnarray.append(self.convert_to_dict(result))
         print(returnarray)
 
+    def findbyid(self, ID):
+        cursor = self.getcursor()
+        sql = "select * from contacts where ID = %s"
+        val = ID
+        cursor.execute(sql, val)
+        result = cursor.fetchone()
+        returnvalue = self.convert_to_dict(result)
+        self.closeall()
+        print(returnvalue)
+        return returnvalue
+        
+
 
     def convert_to_dict(self, resultLine):
         attrkeys=[
