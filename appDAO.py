@@ -8,7 +8,7 @@ import dbconfig as cfg
 
 #create a class to handle all of the functions so we just need to import the class into the server.py file to access the DB and query it
 
-class appDAO:
+class AppDAO:
     connection = ""
     cursor = ''
     host = ''
@@ -32,6 +32,8 @@ class appDAO:
             password = self.password,
             database = self.database,
         )
+        self.cursor = self.connection.cursor()
+        return self.cursor
 
 #Close the connection and the cursor for the DB
     def closeall(self):
@@ -41,18 +43,23 @@ class appDAO:
 #select all records in my data base
 
     def getcontacts(self):
-        cursor = self.getcursor
+        cursor = self.getcursor()
         sql = "select * from contacts"
         cursor.execute(sql)
-        results = cursor.fetchall
+        results = cursor.fetchall()
         returnarray = []
         for result in results:
             returnarray.append(self.convert_to_dict(result))
+        print(returnarray)
 
 
     def convert_to_dict(self, resultLine):
         attrkeys=[
-                #TODO add DB attributes here
+            'ID',
+            'Name',
+            'City',
+            'Phone',
+            'Email'
         ]
         contact = {}
         currentkey = 0
@@ -60,3 +67,5 @@ class appDAO:
             contact[attrkeys[currentkey]] = attrib
             currentkey = currentkey + 1
         return contact
+
+appDAO = AppDAO()
