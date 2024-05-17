@@ -1,0 +1,27 @@
+#the appDAO file stores all the data access information (excluding DB access passwords etc)
+#This essentially contains all of the functionality and queries required for the web app with regard to accessing data in the database
+
+
+#improt the modules required. note dbconfig contains the user access details for the DB
+import mysql.connector
+import dbconfig as cfg
+
+#create a class to handle all of the functions so we just need to import the class into the server.py file to access the DB and query it
+
+class appDAO:
+    connection = ""
+    cursor = ''
+    host = ''
+    user = ''
+    password = ''
+    database = ''
+
+#this __init__ function sets up the relevant variables and will initialise the attributes required for the rest of the function (SQL Queries)
+
+    def __init__(self):
+        self.host = cfg.mysql['host']
+        self.user = cfg.mysql['user']
+        self.password = cfg.mysql['password'] 
+        self.database = cfg.mysql['database'] 
+
+        
