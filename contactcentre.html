@@ -46,9 +46,30 @@
             }
         });
     }
+
+    function updateContact(contact, callback){
+        $.ajax({
+            "url":"http://127.0.0.1:5000/single/"+encodeURI(contact.ID),
+            "method":"Put",
+            "data":JSON.stringify(contact),
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success": function(result){
+                console.log(result);
+                //callback(result)
+            },
+            "error":function(xhr,status,error){
+                console.log("error: " +status+" msg: "+error);
+            }
+        });
+    }
+    
+
     //getContacts()
-    contact = {"ID":4,"Name":"Henry Ford","City":"New York","Phone":"0986478364", "Email":"Henry@gmail.com"}
-    addContact(contact)
+    //contact = {"Name":"Henry Ford","City":"Galway","Phone":"0000000064", "Email":"Jim@gmail.com"}
+    //addContact(contact)
+    contact = {ID:1, "Name":"Millie Moo"}
+    updateContact(contact)
 
 </script>
 </html>

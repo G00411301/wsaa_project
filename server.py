@@ -15,7 +15,7 @@ def allcontacts():
         return jsonify(results)
     elif request.method == 'POST':
         contact = {
-            "ID": request.json['ID'],
+            #"ID": request.json['ID'],
             "Name": request.json['Name'],
             "City": request.json['City'],
             "Phone": request.json['Phone'],

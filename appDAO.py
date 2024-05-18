@@ -69,11 +69,16 @@ class AppDAO:
         
     def createcontact(self, contact):
         cursor = self.getcursor()
-        sql = "INSERT INTO contacts (ID, Name, City, Phone, Email) VALUES (%s,%s,%s,%s,%s)"
-        val = (contact.get("ID"),contact.get("Name"),contact.get("City"),contact.get("Phone"),contact.get("Email"))
+        sql = "INSERT INTO contacts (Name, City, Phone, Email) VALUES (%s,%s,%s,%s)"
+        val = (contact.get("Name"),contact.get("City"),contact.get("Phone"),contact.get("Email"))
         cursor.execute(sql, val)
-        self.closeall()
 
+        self.connection.commit()
+        newid = cursor._last_insert_id
+        contact["ID"] = newid
+        self.closeall()
+        return contact
+    
     def convert_to_dict(self, resultLine):
         attrkeys=[
             'ID',
