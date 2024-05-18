@@ -59,10 +59,15 @@ def singlecontact(id):
         appDAO.updatecontact(id, foundcontact)
         return jsonify(foundcontact)
     elif request.method == "DELETE":
-        pass
+        appDAO.deleteContact(id)
+        return jsonify({"done":True})
     else:
         abort(400)
 
+
+@app.route('/')
+def home():
+    return app.send_static_file("/contactcentre.html")
 
 if __name__ == "__main__":
     app.run(debug = True)
