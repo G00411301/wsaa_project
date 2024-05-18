@@ -31,13 +31,28 @@ def allcontacts():
         abort(400)
 
 #here we are taking the id input in the URL and returng a contact with the matching ID - again, depending on the HTTP method called, different fuctions are executed
-@app.route('/single/<int:id>', methods = ["GET", "POST"])
+@app.route('/single/<int:id>', methods = ["GET", "PUT"])
 def singlecontact(id):
     if request.method == "GET":
         results = appDAO.findbyid(id)
         return jsonify(results)
-    elif request.method == "POST":
-        pass
+    elif request.method == "PUT":
+        foundcontact = appDAO.findbyid(id)
+        if not foundcontact:
+            abort(404)
+        if not request.json:
+            abort(400)
+        reqjson = request.json
+        if 'Name' in reqjson:
+            foundcontact['Name'] = reqjson['Name']
+        if 'City' in reqjson:
+            foundcontact['City'] = reqjson['City']
+        if 'Phone' in reqjson:
+            foundcontact['Phone'] = reqjson['Phone']
+        if 'Email' in reqjson:
+            foundcontact['Email'] = reqjson['Email']
+        appDAO.updatecontact(id, foundcontact)
+        return jsonify(foundcontact)
     else:
         abort(400)
 
