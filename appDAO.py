@@ -87,6 +87,14 @@ class AppDAO:
         self.connection.commit()
         self.closeall()
 
+    def deleteContact(self, ID):
+        cursor = self.getcursor()
+        sql = "DELETE FROM contacts WHERE ID = %s"
+        val = (ID,)
+        cursor.execute(sql, val)        
+        self.connection.commit()
+        self.closeall()
+
 
     
     def convert_to_dict(self, resultLine):

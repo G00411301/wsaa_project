@@ -50,7 +50,7 @@
     function updateContact(contact, callback){
         $.ajax({
             "url":"http://127.0.0.1:5000/single/"+encodeURI(contact.ID),
-            "method":"Put",
+            "method":"PUT",
             "data":JSON.stringify(contact),
             "dataType": "JSON",
             contentType: "application/json; charset=utf-8",
@@ -64,14 +64,30 @@
         });
     }
 
-    
+    function deleteContact(ID, callback){
+        $.ajax({
+            "url":"http://127.0.0.1:5000/single/"+ID,
+            "method":"DELETE",
+            "data":"",
+            "dataType": "JSON",
+            contentType: "application/json; charset=utf-8",
+            "success": function(result){
+                console.log(result);
+                //callback(result)
+            },
+            "error":function(xhr,status,error){
+                console.log("error: " +status+" msg: "+error);
+            }
+        });
+    }
     
 
     //getContacts()
     //contact = {"Name":"Michael","City":"Kilkenny","Phone":"0856985236", "Email":"Michael@gmail.com"}
     //addContact(contact)
-    contact = {ID:1, "Name":"Millie Moo"}
-    updateContact(contact)
+    //contact = {ID:1, "Name":"Millie Moo"}
+    //updateContact(contact)
+    deleteContact(3)
 
 </script>
 </html>
