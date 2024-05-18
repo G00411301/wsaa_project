@@ -14,18 +14,13 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Contact Centre</a>
+          <button type="button" class="btn btn-outline-dark" id="showCreateButton" onclick="showcreate()">Create New Contact</button>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/contactcentre.html">My Contacts</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/test">New Contact</a>
-              </li>
-            </ul>
+</ul>
           </div>
         </div>
       </nav>
@@ -33,10 +28,10 @@
     <!-- ##### Page Heading ##### -->
    <h1>My Contacts</h1>
    <!-- ##### Create New Button ##### -->
-   <div> <button id="showCreateButton" onclick="showcreate()">Create New Contact</button> </div>
+   <!--<div> <button id="showCreateButton" onclick="showcreate()">Create New Contact</button> </div>-->
    <!-- ##### Main page table #####-->
    <div>
-        <table class="table" id="contactstable">
+        <table class="table" id="contactsTable">
             <tr>
                 <th>ID</th>
                 <th>Name</th>
@@ -61,8 +56,41 @@
         <span><button id = "doUpdateButton" onclick="doUpdate()">Update</button></span>
 
    </div>
+
 </body>
 <script>
+    function showCreate(){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('contactsTable').style.display="none"
+        document.getElementById('createUpdateform').style.display="block"
+
+        document.getElementById('createLabel').style.display="inline"
+        document.getElementById('updateLabel').style.display="none"
+
+        document.getElementById('doCreateButton').style.display="block"
+        document.getElementById('doUpdateButton').style.display="none"
+    }
+
+    function showViewAll(){
+        document.getElementById('showCreateButton').style.display="block"
+        document.getElementById('contactsTable').style.display="block"
+        document.getElementById('createUpdateForm').style.display="none"
+    }
+
+    function showUpdate(buttonElement){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('contactsTable').style.display="none"
+        document.getElementById('createUpdateform').style.display="block"
+
+        document.getElementById('createLabel').style.display="none"
+        document.getElementById('updateLabel').style.display="inline"
+
+        document.getElementById('doCreateButton').style.display="none"
+        document.getElementById('doUpdateButton').style.display="block"
+    }
+
+
+
     function getContacts(callback){
         $.ajax({
             "url":"http://127.0.0.1:5000/allcontacts",
