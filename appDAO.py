@@ -72,7 +72,6 @@ class AppDAO:
         sql = "INSERT INTO contacts (Name, City, Phone, Email) VALUES (%s,%s,%s,%s)"
         val = (contact.get("Name"),contact.get("City"),contact.get("Phone"),contact.get("Email"))
         cursor.execute(sql, val)
-
         self.connection.commit()
         newid = cursor._last_insert_id
         contact["ID"] = newid

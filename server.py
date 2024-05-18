@@ -1,9 +1,13 @@
 #This is the main server side file in the application and contains all of the restfulAPI code
 
 from flask import Flask, jsonify, request, abort
+#Added th below as I was getting an error in relation to CORS on the html page: reference - https://stackoverflow.com/questions/25594893/how-to-enable-cors-in-flask
+from flask_cors import CORS, cross_origin
 from appDAO import appDAO
 
 app = Flask(__name__, static_url_path='', static_folder='.')
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'content-Type'
 
 #here we are creating a route that returns all of the contacts in the DB as json. This will be used for two functions
 # 1. when the route is called with a GET request, it will return with all of the rows in the data base, showing all of the contacts.
