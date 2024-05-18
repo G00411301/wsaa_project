@@ -55,15 +55,16 @@ class AppDAO:
         self.closeall()
         return returnarray
 
-    def findbyid(self, ID):
+    def findbyid(self, id):
         cursor = self.getcursor()
         sql = "select * from contacts where ID = %s"
-        val = ID
+        #The comma after the value in the below line caused a lot of head scratching, took some time to figure out it is required even through there is only 1 value
+        val = (id,)
         cursor.execute(sql, val)
         result = cursor.fetchone()
         returnvalue = self.convert_to_dict(result)
         self.closeall()
-        print(returnvalue)
+        #print(returnvalue)
         return returnvalue
         
 
