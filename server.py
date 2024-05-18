@@ -30,8 +30,13 @@ def allcontacts():
     else:
         abort(400)
 
-#here we are taking the id input in the URL and returng a contact with the matching ID - again, depending on the HTTP method called, different fuctions are executed
-@app.route('/single/<int:id>', methods = ["GET", "PUT"])
+"""
+Here we are taking the id input in the URL and returng a contact with the matching ID - again, depending on the HTTP method called, different fuctions are executed
+Calling the function with the GET method just returns the record with the specified ID,
+Calling the function with the PUT method updates a record,
+Calling the function with the DELETE method deletes a record.
+"""
+@app.route('/single/<int:id>', methods = ["GET", "PUT", "DELETE"])
 def singlecontact(id):
     if request.method == "GET":
         results = appDAO.findbyid(id)
@@ -53,6 +58,8 @@ def singlecontact(id):
             foundcontact['Email'] = reqjson['Email']
         appDAO.updatecontact(id, foundcontact)
         return jsonify(foundcontact)
+    elif request.method == "DELETE":
+        pass
     else:
         abort(400)
 
