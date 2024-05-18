@@ -46,15 +46,18 @@
    </div>
 
     
-    <div class="p-4" id='createUpdateForm' style="display: none">
+    <div class="container" id='createUpdateForm' style="display: none">
         <h1><span id="createLabel">Create a</span> <span id="updateLabel">Update</span>Contact</h1>
         <input type = "hidden" name ="ID"/>
-        Name: <input type="text" name="Name"/><br/>
-        City: <input type="text" name="City"/><br/>
-        Phone: <input type="text" name="Phone"/><br/>
-        Email: <input type="text" name="Email"/><br/>
-        <span><button type="button" class="btn btn-outline-dark" id = "doCreateButton" onclick="doCreate()">Create</button></span>
-        <span><button type="button" class="btn btn-outline-dark" id = "doUpdateButton" onclick="doUpdate()">Update</button></span>
+        <div class = "row">Name: <input type="text" name="Name"/><br/></div>
+        <div class = "row">City: <input type="text" name="City"/><br/></div>
+        <div class = "row">Phone: <input type="text" name="Phone"/><br/></div>
+        <div class = "row">Email: <input type="text" name="Email"/><br/></div>
+        
+        <div class = "row pt-4">
+        <button type="button" class="btn btn-outline-dark" id = "doCreateButton" onclick="doCreate()">Create</button>
+        <button type="button" class="btn btn-outline-dark" id = "doUpdateButton" onclick="doUpdate()">Update</button>
+        </div>
 
     </div>
  
