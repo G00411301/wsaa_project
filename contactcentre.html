@@ -87,6 +87,40 @@
 
         document.getElementById('doCreateButton').style.display="none"
         document.getElementById('doUpdateButton').style.display="block"
+
+        var rowElement = buttonElement.parentNode.parentNode
+
+        var contact = getContactFromRow(rowElement)
+        populateFormWithContact(contact)
+    }
+
+    function doCreate(){
+        var form = document.getElementById('createUpdateForm')
+        var contact = {}
+
+        contact.Name = form.queryselector('input[name="Name"]').value
+        contact.City = form.queryselector('input[name="City"]').value
+        contact.Phone = form.queryselector('input[name="Phone"]').value
+        contact.Email = form.queryselector('input[name="Email"]').value
+        console.log(JSON.stringify(contact))
+        addContact(contact)
+    }
+
+    function doUpdate(){
+        var contact = getContactFromForm();
+        var rowElement = document.getElementById(contact.ID);
+        updateContact(contact);
+        setContactInRow(rowElement, contact);
+        clearform();
+        showViewAll();
+    }
+
+    function doDelete(r){
+        var tableElement = document.getElementById('contactsTable');
+        var rowElement = r.parentNode.parentNode;
+        var index = rowElement.rowIndex;
+        deleteContact(rowElement.getAttribute("id"));
+        tableElement.deleteRow(index);
     }
 
 
