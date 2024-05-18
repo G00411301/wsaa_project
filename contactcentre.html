@@ -26,37 +26,39 @@
       </nav>
 
     <!-- ##### Page Heading ##### -->
-   <h1>My Contacts</h1>
+   <h1 class="p-4" >My Contacts Web Application</h1>
    <!-- ##### Create New Button ##### -->
    <!--<div> <button id="showCreateButton" onclick="showcreate()">Create New Contact</button> </div>-->
    <!-- ##### Main page table #####-->
-   <div>
-        <table class="table" id="contactsTable">
+   <div class="p-4">
+        
+        <table class="table table-striped table-hover table-responsive-sm" id="contactsTable">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>City</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Update</th>
-                <th>Delete</th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
             </tr>
         </table>
    </div>
 
-  
-   <div id='createUpdateForm' style="display: none">
+    
+    <div class="g-col-4" id='createUpdateForm' style="display: none">
         <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update</span>Contact</h2>
         <input type = "hidden" name ="ID"/>
-        Name <input type="text" name="Name"/><br/>
-        City <input type="text" name="City"/><br/>
-        Phone <input type="text" name="Phone"/><br/>
-        Email <input type="text" name="Email"/><br/>
-        <span><button id = "doCreateButton" onclick="doCreate()">Create</button></span>
-        <span><button id = "doUpdateButton" onclick="doUpdate()">Update</button></span>
+        Name: <input type="text" name="Name"/><br/>
+        City: <input type="text" name="City"/><br/>
+        Phone: <input type="text" name="Phone"/><br/>
+        Email: <input type="text" name="Email"/><br/>
+        <span><button type="button" class="btn btn-outline-dark" id = "doCreateButton" onclick="doCreate()">Create</button></span>
+        <span><button type="button" class="btn btn-outline-dark" id = "doUpdateButton" onclick="doUpdate()">Update</button></span>
 
-   </div>
-
+    </div>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 <script>
     function showCreate(){
@@ -98,12 +100,16 @@
         var form = document.getElementById('createUpdateForm')
         var contact = {}
 
-        contact.Name = form.queryselector('input[name="Name"]').value
-        contact.City = form.queryselector('input[name="City"]').value
-        contact.Phone = form.queryselector('input[name="Phone"]').value
-        contact.Email = form.queryselector('input[name="Email"]').value
+        contact.Name = form.querySelector('input[name="Name"]').value
+        contact.City = form.querySelector('input[name="City"]').value
+        contact.Phone = form.querySelector('input[name="Phone"]').value
+        contact.Email = form.querySelector('input[name="Email"]').value
         console.log(JSON.stringify(contact))
         addContact(contact)
+        //showViewAll()
+        location.reload()
+        
+
     }
 
     function doUpdate(){
@@ -111,8 +117,9 @@
         var rowElement = document.getElementById(contact.ID);
         updateContact(contact);
         setContactInRow(rowElement, contact);
-        clearform();
-        showViewAll();
+        clearForm()
+        //showViewAll()
+        location.reload()
     }
 
     function doDelete(r){
@@ -138,36 +145,36 @@
         var cell5 = rowElement.insertCell(4);
         cell5.innerHTML = contact.Email
         var cell6 = rowElement.insertCell(5);
-        cell6.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        cell6.innerHTML = '<button type="button" class="btn btn-outline-warning" onclick="showUpdate(this)">Update</button>'
         var cell7 = rowElement.insertCell(6);
-        cell7.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
+        cell7.innerHTML = '<button type="button" class="btn btn-outline-danger" onclick="doDelete(this)">Delete</button>'
     }
 
     function clearForm(){
-        var Form = document.getElementById('createUpdateForm')
+        var form = document.getElementById('createUpdateForm')
 
-        form.queryselector('input[name="Name"]').value=''
-        form.queryselector('input[name="City"]').value=''
-        form.queryselector('input[name="Phone"]').value=''
-        form.queryselector('input[name="Email"]').value=''
+        form.querySelector('input[name="Name"]').value=''
+        form.querySelector('input[name="City"]').value=''
+        form.querySelector('input[name="Phone"]').value=''
+        form.querySelector('input[name="Email"]').value=''
     }
 
     function getContactFromRow(rowElement){
         var car = {}
         contact.ID = rowElement.getAttribute('ID')
-        contact.Name = rowElement.cells[1].firstchild.textContent
-        contact.City = rowElement.cells[2].firstchild.textContent
-        contact.Phone = rowElement.cells[3].firstchild.textContent
-        contact.Email = rowElement.cells[4].firstchild.textContent
+        contact.Name = rowElement.cells[1].firstChild.textContent
+        contact.City = rowElement.cells[2].firstChild.textContent
+        contact.Phone = rowElement.cells[3].firstChild.textContent
+        contact.Email = rowElement.cells[4].firstChild.textContent
         return contact
     }
 
     function setContactInRow(rowElement, contact){
-        rowElement.cells[0].firstchild.textContent = contact.ID
-        rowElement.cells[1].firstchild.textContent = contact.Name
-        rowElement.cells[2].firstchild.textContent = contact.City
-        rowElement.cells[3].firstchild.textContent = contact.Phone
-        rowElement.cells[4].firstchild.textContent = contact.Email
+        rowElement.cells[0].firstChild.textContent = contact.ID
+        rowElement.cells[1].firstChild.textContent = contact.Name
+        rowElement.cells[2].firstChild.textContent = contact.City
+        rowElement.cells[3].firstChild.textContent = contact.Phone
+        rowElement.cells[4].firstChild.textContent = contact.Email
     }
 
     function populateFormWithContact(contact){
@@ -189,7 +196,7 @@
         contact.City = form.querySelector('input[name="City"]').value
         contact.Phone = form.querySelector('input[name="Phone"]').value
         contact.Email = form.querySelector('input[name="Email"]').value
-        console.log(json.stringify(contact))
+        console.log(JSON.stringify(contact))
         return contact
     }
 
@@ -225,8 +232,7 @@
                 contact.ID = result.ID
                 addContactToTable(contact)
                 clearForm()
-                showViewAll()
-                
+                showViewAll()                
             },
             "error":function(xhr,status,error){
                 console.log("error: " +status+" msg: "+error);
@@ -244,7 +250,8 @@
             "success": function(result){
                 //console.log(result);
                 //callback(result)
-                showViewAll()
+                //showViewAll()
+                //getContacts()
             },
             "error":function(xhr,status,error){
                 console.log("error: " +status+" msg: "+error);
@@ -278,4 +285,5 @@
     //deleteContact(2)
     getContacts();
     </script>
+    
 </html>
