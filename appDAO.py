@@ -67,7 +67,12 @@ class AppDAO:
         #print(returnvalue)
         return returnvalue
         
-
+    def createcontact(self, contact):
+        cursor = self.getcursor()
+        sql = "INSERT INTO contacts (ID, Name, City, Phone, Email) VALUES (%s,%s,%s,%s,%s)"
+        val = (contact.get("ID"),contact.get("Name"),contact.get("City"),contact.get("Phone"),contact.get("Email"))
+        cursor.execute(sql, val)
+        self.closeall()
 
     def convert_to_dict(self, resultLine):
         attrkeys=[

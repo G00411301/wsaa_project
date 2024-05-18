@@ -14,8 +14,17 @@ def allcontacts():
         results = appDAO.getcontacts()
         return jsonify(results)
     elif request.method == 'POST':
-        pass
-    #TODO add create record functionality
+        contact = {
+            "ID": request.json['ID'],
+            "Name": request.json['Name'],
+            "City": request.json['City'],
+            "Phone": request.json['Phone'],
+            "Email": request.json['Email'],
+        }
+        addedcontact = appDAO.createcontact(contact)
+        return jsonify(addedcontact)
+    else:
+        abort(400)
 
 #here we are taking the id input in the URL and returng a contact with the matching ID
 @app.route('/single/<int:id>')
