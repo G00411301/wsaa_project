@@ -78,6 +78,17 @@ class AppDAO:
         self.closeall()
         return contact
     
+    def updatecontact(self, ID, contact):
+        cursor = self.getcursor()
+        sql = "UPDATE contacts SET Name=%s, City=%s, Phone=%s, Email=%s WHERE ID=%s"
+        print(f"Update Contact: {contact}")
+        val = (contact.get("Name"),contact.get("City"),contact.get("Phone"),contact.get("Email"),ID)
+        cursor.execute(sql, val)
+        self.connection.commit()
+        self.closeall()
+
+
+    
     def convert_to_dict(self, resultLine):
         attrkeys=[
             'ID',
