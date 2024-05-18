@@ -30,12 +30,16 @@ def allcontacts():
     else:
         abort(400)
 
-#here we are taking the id input in the URL and returng a contact with the matching ID
-@app.route('/single/<int:id>')
+#here we are taking the id input in the URL and returng a contact with the matching ID - again, depending on the HTTP method called, different fuctions are executed
+@app.route('/single/<int:id>', methods = ["GET", "POST"])
 def singlecontact(id):
-    results = appDAO.findbyid(id)
-    return jsonify(results)
-
+    if request.method == "GET":
+        results = appDAO.findbyid(id)
+        return jsonify(results)
+    elif request.method == "POST":
+        pass
+    else:
+        abort(400)
 
 
 if __name__ == "__main__":
