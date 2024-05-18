@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Contact Centre</a>
-          <button type="button" class="btn btn-outline-dark" id="showCreateButton" onclick="showcreate()">Create New Contact</button>
+          <button type="button" class="btn btn-outline-dark" id="showCreateButton" onclick="showCreate()">Create New Contact</button>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -47,7 +47,7 @@
   
    <div id='createUpdateForm' style="display: none">
         <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update</span>Contact</h2>
-        <input type = "hidden" name ="id"/>
+        <input type = "hidden" name ="ID"/>
         Name <input type="text" name="Name"/><br/>
         City <input type="text" name="City"/><br/>
         Phone <input type="text" name="Phone"/><br/>
@@ -62,7 +62,7 @@
     function showCreate(){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('contactsTable').style.display="none"
-        document.getElementById('createUpdateform').style.display="block"
+        document.getElementById('createUpdateForm').style.display="block"
 
         document.getElementById('createLabel').style.display="inline"
         document.getElementById('updateLabel').style.display="none"
@@ -80,7 +80,7 @@
     function showUpdate(buttonElement){
         document.getElementById('showCreateButton').style.display="none"
         document.getElementById('contactsTable').style.display="none"
-        document.getElementById('createUpdateform').style.display="block"
+        document.getElementById('createUpdateForm').style.display="block"
 
         document.getElementById('createLabel').style.display="none"
         document.getElementById('updateLabel').style.display="inline"
@@ -119,21 +119,93 @@
         var tableElement = document.getElementById('contactsTable');
         var rowElement = r.parentNode.parentNode;
         var index = rowElement.rowIndex;
-        deleteContact(rowElement.getAttribute("id"));
+        deleteContact(rowElement.getAttribute("ID"));
         tableElement.deleteRow(index);
+    }
+
+    function addContactToTable(contact){
+        var tableElement = document.getElementById('contactsTable')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('ID', contact.ID)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = contact.ID
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = contact.Name
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = contact.City
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = contact.Phone
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = contact.Email
+        var cell6 = rowElement.insertCell(5);
+        cell6.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell7 = rowElement.insertCell(6);
+        cell7.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
+    }
+
+    function clearForm(){
+        var Form = document.getElementById('createUpdateForm')
+
+        form.queryselector('input[name="Name"]').value=''
+        form.queryselector('input[name="City"]').value=''
+        form.queryselector('input[name="Phone"]').value=''
+        form.queryselector('input[name="Email"]').value=''
+    }
+
+    function getContactFromRow(rowElement){
+        var car = {}
+        contact.ID = rowElement.getAttribute('ID')
+        contact.Name = rowElement.cells[1].firstchild.textContent
+        contact.City = rowElement.cells[2].firstchild.textContent
+        contact.Phone = rowElement.cells[3].firstchild.textContent
+        contact.Email = rowElement.cells[4].firstchild.textContent
+        return contact
+    }
+
+    function setContactInRow(rowElement, contact){
+        rowElement.cells[0].firstchild.textContent = contact.ID
+        rowElement.cells[1].firstchild.textContent = contact.Name
+        rowElement.cells[2].firstchild.textContent = contact.City
+        rowElement.cells[3].firstchild.textContent = contact.Phone
+        rowElement.cells[4].firstchild.textContent = contact.Email
+    }
+
+    function populateFormWithContact(contact){
+        var form = document.getElementById('createUpdateForm')
+        form.querySelector('input[name="ID"]').diabled=true
+        form.querySelector('input[name="ID"]').value = contact.ID
+        form.querySelector('input[name="Name"]').value = contact.Name
+        form.querySelector('input[name="City"]').value = contact.City
+        form.querySelector('input[name="Phone"]').value = contact.Phone
+        form.querySelector('input[name="Email"]').value = contact.Email
+        return contact
+    }
+
+    function getContactFromForm(){
+        var form = document.getElementById('createUpdateForm')
+        var contact = {}
+        contact.ID = form.querySelector('input[name="ID"]').value
+        contact.Name = form.querySelector('input[name="Name"]').value
+        contact.City = form.querySelector('input[name="City"]').value
+        contact.Phone = form.querySelector('input[name="Phone"]').value
+        contact.Email = form.querySelector('input[name="Email"]').value
+        console.log(json.stringify(contact))
+        return contact
     }
 
 
 
-    function getContacts(callback){
+    function getContacts(){
         $.ajax({
             "url":"http://127.0.0.1:5000/allcontacts",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
             "success": function(result){
-                console.log(result);
-                callback(result)
+                //console.log(result);
+                for (contact of result){
+                    addContactToTable(contact);
+                }
             },
             "error":function(xhr,status,error){
                 console.log("error: " +status+" msg: "+error);
@@ -141,7 +213,7 @@
         });
     }
 
-    function addContact(contact, callback){
+    function addContact(contact){
         $.ajax({
             "url":"http://127.0.0.1:5000/allcontacts",
             "method":"POST",
@@ -149,8 +221,12 @@
             "dataType": "JSON",
             contentType: "application/json; charset=utf-8",
             "success": function(result){
-                console.log(result);
-                //callback(result)
+                //console.log(result);
+                contact.ID = result.ID
+                addContactToTable(contact)
+                clearForm()
+                showViewAll()
+                
             },
             "error":function(xhr,status,error){
                 console.log("error: " +status+" msg: "+error);
@@ -158,7 +234,7 @@
         });
     }
 
-    function updateContact(contact, callback){
+    function updateContact(contact){
         $.ajax({
             "url":"http://127.0.0.1:5000/single/"+encodeURI(contact.ID),
             "method":"PUT",
@@ -166,8 +242,9 @@
             "dataType": "JSON",
             contentType: "application/json; charset=utf-8",
             "success": function(result){
-                console.log(result);
+                //console.log(result);
                 //callback(result)
+                showViewAll()
             },
             "error":function(xhr,status,error){
                 console.log("error: " +status+" msg: "+error);
@@ -175,7 +252,7 @@
         });
     }
 
-    function deleteContact(ID, callback){
+    function deleteContact(ID){
         $.ajax({
             "url":"http://127.0.0.1:5000/single/"+ID,
             "method":"DELETE",
@@ -183,7 +260,7 @@
             "dataType": "JSON",
             contentType: "application/json; charset=utf-8",
             "success": function(result){
-                console.log(result);
+                //console.log(result);
                 //callback(result)
             },
             "error":function(xhr,status,error){
@@ -199,6 +276,6 @@
     //contact = {ID:1, "Name":"Millie Moo"}
     //updateContact(contact)
     //deleteContact(2)
-
-</script>
+    getContacts();
+    </script>
 </html>
