@@ -3,6 +3,7 @@
 
 
 #improt the modules required. note dbconfig contains the user access details for the DB
+#I added dbconfig.py to the git ignore file in order to stop the file being pushed to github as it contains the access details to the DB
 import mysql.connector
 import dbconfig as cfg
 
@@ -50,7 +51,9 @@ class AppDAO:
         returnarray = []
         for result in results:
             returnarray.append(self.convert_to_dict(result))
-        print(returnarray)
+        #print(returnarray)
+        self.closeall()
+        return returnarray
 
     def findbyid(self, ID):
         cursor = self.getcursor()
@@ -80,4 +83,6 @@ class AppDAO:
             currentkey = currentkey + 1
         return contact
 
+
+#This is what is imported into the server.py file to access the queries
 appDAO = AppDAO()
