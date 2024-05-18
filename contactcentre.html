@@ -13,7 +13,7 @@
     <!-- ##### NAV BAR ##### -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Contact Centre</a>
+          <a class="navbar-brand" href="http://127.0.0.1:5000/contactcentre.html">Contact Centre</a>
           <button type="button" class="btn btn-outline-dark" id="showCreateButton" onclick="showCreate()">Create New Contact</button>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,12 +26,12 @@
       </nav>
 
     <!-- ##### Page Heading ##### -->
-   <h1 class="p-4" >My Contacts Web Application</h1>
+   <!--<h1 class="p-4" id = "h1Main">My Contacts Web Application</h1>-->
    <!-- ##### Create New Button ##### -->
    <!--<div> <button id="showCreateButton" onclick="showcreate()">Create New Contact</button> </div>-->
    <!-- ##### Main page table #####-->
    <div class="p-4">
-        
+        <h1 class="p-2" id = "h1Main">My Contacts Web Application</h1>
         <table class="table table-striped table-hover table-responsive-sm" id="contactsTable">
             <tr>
                 <th scope="col">ID</th>
@@ -46,8 +46,8 @@
    </div>
 
     
-    <div class="g-col-4" id='createUpdateForm' style="display: none">
-        <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update</span>Contact</h2>
+    <div class="p-4" id='createUpdateForm' style="display: none">
+        <h1><span id="createLabel">Create a</span> <span id="updateLabel">Update</span>Contact</h1>
         <input type = "hidden" name ="ID"/>
         Name: <input type="text" name="Name"/><br/>
         City: <input type="text" name="City"/><br/>
@@ -69,6 +69,7 @@
         document.getElementById('createLabel').style.display="inline"
         document.getElementById('updateLabel').style.display="none"
 
+        document.getElementById('h1Main').style.display="none"
         document.getElementById('doCreateButton').style.display="block"
         document.getElementById('doUpdateButton').style.display="none"
     }
@@ -87,6 +88,7 @@
         document.getElementById('createLabel').style.display="none"
         document.getElementById('updateLabel').style.display="inline"
 
+        document.getElementById('h1Main').style.display="none"
         document.getElementById('doCreateButton').style.display="none"
         document.getElementById('doUpdateButton').style.display="block"
 
