@@ -94,9 +94,7 @@ class AppDAO:
         cursor.execute(sql, val)        
         self.connection.commit()
         self.closeall()
-
-
-    
+            
     def convert_to_dict(self, resultLine):
         attrkeys=[
             'ID',
