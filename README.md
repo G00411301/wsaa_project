@@ -9,6 +9,12 @@ The project (Type A) involved writing a flask server that would allow CRUD opera
 This project is hosted on python anywhere at the below URL:
 
 
+## Download
+
+This application can be downloaded from github at the below URL:
+
+https://github.com/G00411301/wsaa_project
+
 
 ## Files included in the reporitory
 
