@@ -45,7 +45,7 @@ class AppDAO:
 
     def getcontacts(self):
         cursor = self.getcursor()
-        sql = "select * from contacts ORDER BY ID"
+        sql = "select * from contacts ORDER BY Name"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnarray = []
