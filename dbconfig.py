@@ -4,5 +4,5 @@ mysql = {
     'host' : "G00411301.mysql.pythonanywhere-services.com",
     'user' : "G00411301",
     'password':"wsaa_project",
-    'database':"mycontacts"
+    'database':"G00411301$mycontacts"
 }

@@ -8,6 +8,7 @@ The project (Type A) involved writing a flask server that would allow CRUD opera
 
 This project is hosted on python anywhere at the below URL:
 
+https://g00411301.pythonanywhere.com/
 
 ## Download
 
