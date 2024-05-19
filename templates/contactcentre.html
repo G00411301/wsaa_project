@@ -209,7 +209,7 @@
 
     function getContacts(){
         $.ajax({
-            "url":"http://127.0.0.1:5000/allcontacts",
+            "url":"allcontacts",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
@@ -227,7 +227,7 @@
 
     function addContact(contact){
         $.ajax({
-            "url":"http://127.0.0.1:5000/allcontacts",
+            "url":"allcontacts",
             "method":"POST",
             "data":JSON.stringify(contact),
             "dataType": "JSON",
@@ -247,7 +247,7 @@
 
     function updateContact(contact){
         $.ajax({
-            "url":"http://127.0.0.1:5000/single/"+encodeURI(contact.ID),
+            "url":"single/"+encodeURI(contact.ID),
             "method":"PUT",
             "data":JSON.stringify(contact),
             "dataType": "JSON",
@@ -266,7 +266,7 @@
 
     function deleteContact(ID){
         $.ajax({
-            "url":"http://127.0.0.1:5000/single/"+ID,
+            "url":"single/"+ID,
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",
