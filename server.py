@@ -1,6 +1,6 @@
 #This is the main server side file in the application and contains all of the restfulAPI code
 
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, render_template
 #Added th below as I was getting an error in relation to CORS on the html page: reference - https://stackoverflow.com/questions/25594893/how-to-enable-cors-in-flask
 from flask_cors import CORS, cross_origin
 from appDAO import appDAO
@@ -67,7 +67,7 @@ def singlecontact(id):
 
 @app.route('/')
 def home():
-    return app.send_static_file("/contactcentre.html")
+    return render_template('contactcentre.html')
 
 if __name__ == "__main__":
     app.run(debug = True)
